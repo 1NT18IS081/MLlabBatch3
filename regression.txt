@@ -1,0 +1,32 @@
+Regression 
+
+import pandas as pd
+import numpy as np
+data=pd.read_csv('/home/admin1/1nt18is193_inchara/regression.csv')
+x1=data['X'].values
+y1=data['Y'].values
+X=np.array(list(zip(x1)))
+Y=np.array(list(zip(y1)))
+import matplotlib.pyplot as plt
+import scipy.stats
+r=scipy.stats.pearsonr(x1, y1)[0]
+std_x=np.std(x1)
+std_y=np.std(y1)
+m = r *(std_y/std_x)
+C = np.mean(y1)-m*np.mean(x1)
+Y_pred = m*(x1)+C
+plt.scatter(X, Y)
+plt.plot(X, Y_pred, color="red")
+plt.show()
+sub=((y1-Y_pred)**2)
+sse=sum(sub)
+sse
+mean_y = np.mean(y1)
+sub1= ((Y_pred - mean_y)**2)
+ssr = sum(sub1)
+ssr
+sub2=((y1-mean_y)**2)
+sst=sum(sub2)
+sst
+R=ssr/sst
+R
