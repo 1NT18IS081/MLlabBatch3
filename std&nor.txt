@@ -1,0 +1,53 @@
+def dataset_minmax(dataset):
+    minmax = list()
+    for i in range(len(dataset[0])):
+        col_values = [row[i] for row in dataset]
+        value_min = min(col_values)
+        value_max = max(col_values)
+        minmax.append([value_min, value_max])
+    return minmax
+
+#Rescale dataset columns to the range 0-1
+def normalize_dataset(dataset, minmax):
+    for row in dataset:
+        for i in range(len(row)):
+            row[i] = (row[i] - minmax[i][0]) / (minmax[i][1] - minmax[i][0])
+            
+# Contrive small dataset
+dataset = [[50, 30], [20, 90]]
+print(dataset)
+# Calculate min and max for each column
+minmax = dataset_minmax(dataset)
+print(minmax)
+# Normalize columns
+normalize_dataset(dataset, minmax)
+print(dataset)
+
+from sklearn.preprocessing import Normalizer
+X=[[4,1,2,2],[1,3,9,3],[5,7,5,1]]
+transformer=Normalizer().fit(X)
+transformer
+transformer.transform(X)
+
+from sklearn.preprocessing import StandardScaler
+x=[[0,0],[0,0],[1,1],[1,1]]
+scaler=StandardScaler(x)
+print(scaler.fit(x))
+print(scaler.mean_)
+print(scaler.transform(x))
+print(scaler.transform([[2,2]]))
+
+import numpy as np
+dataset = np.array([1.0, 2.0, 3.0, 3.0, 3.0, 2.0, 1.0])
+standardized_dataset = (dataset - np.average(dataset)) / (np.std(dataset))
+print(standardized_dataset)
+
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+dataset = np.array([1.0, 2.0, 3.0, 3.0, 3.0, 2.0, 1.0]).reshape(-1, 1)
+scaler = StandardScaler()
+scaler.fit(dataset)
+standardized_dataset = scaler.transform(dataset)
+print(standardized_dataset)
+print(np.mean(standardized_dataset))
+print(np.std(standardized_dataset))
