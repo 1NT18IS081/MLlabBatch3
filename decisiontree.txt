@@ -1,0 +1,43 @@
+import pandas as pd
+df= pd.read_csv('/home/admin1/1nt18is193_inchara/zoo_data.csv')
+x1=df['x1'].values
+x2=df[‘x2’].values
+x3=df['x3'].values
+x4=df['x4'].values
+x5=df['x5'].values
+x6=df['x6'].values
+x7=df['x7'].values
+x8=df['x8'].values
+x9=df['x9'].values
+x10=df['x10'].values
+x11=df['x11'].values
+x12=df['x12'].values
+x13=df['x13'].values
+x14=df['x14'].values
+x15=df['x15'].values
+x16=df['x16'].values
+y1=df['x17'].values
+import numpy as np
+X=np.array(list(zip(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16)))
+Y=y1
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+X_train,X_test,Y_train,Y_test=train_test_split(X,Y)
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+model = DecisionTreeClassifier()
+model.fit(X_train,Y_train)
+Ypredict = model.predict(X_test)
+print(accuracy_score(Y_test,Ypredict))
+print(confusion_matrix(Y_test, Ypredict))
+print(classification_report(Y_test,Ypredict))
+fn =['X1', 'X2', 'X3', 'X4','X5','X6','X7','X8','X9','X10','X11','X12','X13','X14','X15','X16']
+cn=['1','2','3','4','5','6','7']
+import matplotlib.pyplot as plt
+from sklearn import tree
+fig, axes = plt.subplots(nrows = 1,ncols = 1,figsize = (10,10), dpi=100)
+tree.plot_tree(model,
+           feature_names = fn,
+           class_names=cn,
+           filled = True);
